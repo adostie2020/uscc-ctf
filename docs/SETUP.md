@@ -31,5 +31,5 @@ All tools are free. Install what you need per your role; run `tools/verify-env.p
 - steg: **steghide**, **zsteg**, **stegsolve** (as needed)
 
 ## After install
-1. Run `tools/verify-env.ps1`.
+1. Run `tools/verify-env.ps1`. No PowerShell 7 (`pwsh`) on Windows? Run `powershell -NoProfile -File tools/verify-env.ps1` instead — the `.ps1` scripts work under both.
 2. Start Ghidra+ReVa and Burp+MCP, then run `/mcp` in Claude Code to confirm both connect.

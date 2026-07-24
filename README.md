@@ -12,6 +12,7 @@ flags. Read `docs/RULES.md` and `CLAUDE.md` first.
 1. Open it in CTFd. Copy the description; download the file / note the server link.
 2. Scaffold it:  `pwsh tools/new-challenge.ps1 <category> "<name>"`
    (or `bash tools/new-challenge.sh <category> "<name>"`).
+   No PowerShell 7 on Windows? Use `powershell -NoProfile -File tools/new-challenge.ps1 <category> "<name>"` instead.
    Categories: web, crypto, forensics, rev, pwn, misc.
 3. Paste the description into the new `README.md`; drop artifacts into `files/`.
 4. Ask the agent to triage it. Run any `▶ RUN THIS YOURSELF` script it writes.
