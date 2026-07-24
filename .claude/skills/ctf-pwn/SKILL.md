@@ -530,3 +530,14 @@ Binary exploitation is **creative problem-solving**:
 Every CTF challenge is different. Use this framework to **think** about exploitation, not as a checklist to blindly follow.
 
 **Your goal**: Document enough information in Ghidra to write the exploit script. The actual exploitation happens outside, but the analysis happens here.
+
+## Guardrails
+- Static analysis (Ghidra/ReVa) and writing exploit/solver scripts (e.g. Python/pwntools)
+  into `scripts/` are the agent's job, done entirely offline.
+- Running the exploit against the live challenge (`nc host port` or any remote host) is a
+  `▶ RUN THIS YOURSELF` handoff: the agent supplies the exact script/command, the human
+  runs it and pastes the output back.
+- Dynamic work — running the target binary, gdb/ltrace, crash testing — is the human's to
+  execute; the agent gives exact commands.
+- The agent never sends traffic to challenge hosts and never submits flags. The recovered
+  flag goes to `solution.md` for the human to submit.
