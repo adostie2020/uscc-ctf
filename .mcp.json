@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "reva": {
+      "type": "sse",
+      "url": "http://127.0.0.1:8080/sse"
+    },
+    "burp": {
+      "command": "<path to Java executable packaged with Burp>",
+      "args": [
+        "-jar",
+        "/path/to/mcp/proxy/jar/mcp-proxy-all.jar",
+        "--sse-url",
+        "<your Burp MCP server URL configured in the extension>"
+      ]
+    }
+  }
+}

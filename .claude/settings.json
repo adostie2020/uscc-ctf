@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "deny": [
+      "mcp__burp__send_http1_request",
+      "mcp__burp__send_http2_request",
+      "mcp__burp__send_http_request",
+      "mcp__burp__send_to_repeater",
+      "mcp__burp__send_to_intruder",
+      "mcp__burp__start_active_scan",
+      "mcp__burp__active_scan"
+    ]
+  }
+}
