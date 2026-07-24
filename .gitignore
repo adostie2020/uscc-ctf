@@ -1,0 +1,19 @@
+# OS / editor
+Thumbs.db
+.DS_Store
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Large / binary challenge artifacts are kept, but ignore build + extraction noise
+challenges/**/_extracted/
+challenges/**/*.core
+challenges/**/ghidra_*/
+*.rep            # Ghidra project locks
+*.lock
+
+# Do NOT ignore challenges/**/files/ — teammates need the artifacts
