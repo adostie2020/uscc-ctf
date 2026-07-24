@@ -27,5 +27,5 @@ foreach ($r in ($rows | Sort-Object Category, Name)) {
     $lines += "| $($r.Category) | $($r.Name) | $($r.Points) | $($r.Owner) | $($r.Status) |"
 }
 $absoluteBoardPath = Join-Path $chalRoot "BOARD.md"
-[System.IO.File]::WriteAllText($absoluteBoardPath, ($lines -join "`n"), (New-Object System.Text.UTF8Encoding($false)))
+[System.IO.File]::WriteAllText($absoluteBoardPath, (($lines -join "`n") + "`n"), (New-Object System.Text.UTF8Encoding($false)))
 Write-Host ("Updated BOARD.md ({0} challenges)" -f $rows.Count)
