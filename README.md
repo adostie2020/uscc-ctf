@@ -1,4 +1,4 @@
-# USCC CTF — Team Workspace
+# CTF — Team Workspace
 
 Shared workspace for a CTF. An AI agent helps us analyze
 challenges and write scripts; **we** run all challenge traffic and submit all
