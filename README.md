@@ -1,6 +1,6 @@
 # USCC CTF — Team Workspace
 
-Shared workspace for the USCC West Coast 2026 CTF. An AI agent helps us analyze
+Shared workspace for a CTF. An AI agent helps us analyze
 challenges and write scripts; **we** run all challenge traffic and submit all
 flags. Read `docs/RULES.md` and `CLAUDE.md` first.
 
