@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
-board="$root/challenges/BOARD.md"
+
+ctf="${CTF:-}"
+if [[ -z "$ctf" && -f "$root/ctfs/.active" ]]; then ctf="$(head -n1 "$root/ctfs/.active" | tr -d '\r\n')"; fi
+[[ -n "$ctf" ]] || { echo "no active CTF: run tools/new-ctf.sh or set \$CTF=<slug>"; exit 1; }
+chalroot="$root/ctfs/$ctf/challenges"
+[[ -d "$chalroot" ]] || { echo "no challenges dir: $chalroot"; exit 1; }
+board="$root/ctfs/$ctf/BOARD.md"
 
 rows=""
 while IFS= read -r d; do
@@ -12,19 +18,10 @@ while IFS= read -r d; do
   points="$(grep -m1 -E '^- \*\*Points:\*\*' "$r" | sed -E 's/^- \*\*Points:\*\* *//' || true)"
   owner="$(grep -m1 -E '^- \*\*Owner:\*\*' "$r" | sed -E 's/^- \*\*Owner:\*\* *//' || true)"
   status="$(grep -m1 -E '^- \*\*Status:\*\*' "$r" | sed -E 's/^- \*\*Status:\*\* *([^ <]+).*/\1/' || true)"
-
-  # Defensive: strip a stray trailing CR (README hand-edited on Windows with CRLF).
-  name="${name%$'\r'}"
-  points="${points%$'\r'}"
-  owner="${owner%$'\r'}"
-  status="${status%$'\r'}"
-
-  # Fallbacks, matching update-board.ps1: absent H1 -> folder name, absent Status -> untouched.
-  : "${name:=$base}"
-  : "${status:=untouched}"
-
+  name="${name%$'\r'}"; points="${points%$'\r'}"; owner="${owner%$'\r'}"; status="${status%$'\r'}"
+  : "${name:=$base}"; : "${status:=untouched}"
   rows+="$cat"$'\t'"$name"$'\t'"$points"$'\t'"$owner"$'\t'"$status"$'\n'
-done < <(find "$root/challenges" -mindepth 2 -maxdepth 2 -type d | sort)
+done < <(find "$chalroot" -mindepth 2 -maxdepth 2 -type d | sort)
 
 {
   echo "# Team Board"; echo
@@ -37,4 +34,4 @@ done < <(find "$root/challenges" -mindepth 2 -maxdepth 2 -type d | sort)
     done
   fi
 } > "$board"
-echo "Updated BOARD.md"
+echo "Updated $board"

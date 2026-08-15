@@ -1,6 +1,15 @@
 ﻿$ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
-$chalRoot = Join-Path $root "challenges"
+
+$ctf = $env:CTF
+if (-not $ctf) {
+    $activeFile = Join-Path $root "ctfs/.active"
+    if (Test-Path $activeFile) { $ctf = (Get-Content $activeFile -TotalCount 1).Trim() }
+}
+if (-not $ctf) { Write-Error "no active CTF: run tools/new-ctf.ps1 or set `$env:CTF"; exit 1 }
+$chalRoot = Join-Path $root "ctfs/$ctf/challenges"
+if (-not (Test-Path $chalRoot)) { Write-Error "no challenges dir: $chalRoot"; exit 1 }
+
 $rows = @()
 Get-ChildItem -Path $chalRoot -Directory | Where-Object { $_.Name -ne "" } | ForEach-Object {
     $cat = $_.Name
@@ -26,6 +35,6 @@ $lines += "|----------|-----------|--------|-------|--------|"
 foreach ($r in ($rows | Sort-Object Category, Name)) {
     $lines += "| $($r.Category) | $($r.Name) | $($r.Points) | $($r.Owner) | $($r.Status) |"
 }
-$absoluteBoardPath = Join-Path $chalRoot "BOARD.md"
-[System.IO.File]::WriteAllText($absoluteBoardPath, (($lines -join "`n") + "`n"), (New-Object System.Text.UTF8Encoding($false)))
-Write-Host ("Updated BOARD.md ({0} challenges)" -f $rows.Count)
+$board = Join-Path $root "ctfs/$ctf/BOARD.md"
+[System.IO.File]::WriteAllText($board, (($lines -join "`n") + "`n"), (New-Object System.Text.UTF8Encoding($false)))
+Write-Host ("Updated {0} ({1} challenges)" -f $board, $rows.Count)
