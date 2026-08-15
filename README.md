@@ -41,3 +41,7 @@ scope). To work several events at once, override the active one per command with
 - `ctfs/<slug>/challenges/<category>/<slug>/` — one folder per challenge.
 - `ctfs/<slug>/BOARD.md` — per-event status board (generated).
 - `ctfs/<slug>/artifacts/` — event-wide files (dumps, PDFs).
+
+> The GitHub repo is named `ctf-workspace`. If your local clone still carries the old
+> single-event folder name, rename it to `ctf-workspace` at your convenience — it is the
+> session working directory, so do it yourself outside an active session.
