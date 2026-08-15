@@ -14,9 +14,9 @@ while IFS= read -r d; do
   r="$d/README.md"; [[ -f "$r" ]] || continue
   cat="$(basename "$(dirname "$d")")"
   base="$(basename "$d")"
-  name="$(grep -m1 -E '^# ' "$r" | sed -E 's/^# +//' || true)"
-  points="$(grep -m1 -E '^- \*\*Points:\*\*' "$r" | sed -E 's/^- \*\*Points:\*\* *//' || true)"
-  owner="$(grep -m1 -E '^- \*\*Owner:\*\*' "$r" | sed -E 's/^- \*\*Owner:\*\* *//' || true)"
+  name="$(grep -m1 -E '^# ' "$r" | sed -E 's/^# +//; s/[[:space:]]+$//' || true)"
+  points="$(grep -m1 -E '^- \*\*Points:\*\*' "$r" | sed -E 's/^- \*\*Points:\*\* *//; s/[[:space:]]+$//' || true)"
+  owner="$(grep -m1 -E '^- \*\*Owner:\*\*' "$r" | sed -E 's/^- \*\*Owner:\*\* *//; s/[[:space:]]+$//' || true)"
   status="$(grep -m1 -E '^- \*\*Status:\*\*' "$r" | sed -E 's/^- \*\*Status:\*\* *([^ <]+).*/\1/' || true)"
   name="${name%$'\r'}"; points="${points%$'\r'}"; owner="${owner%$'\r'}"; status="${status%$'\r'}"
   : "${name:=$base}"; : "${status:=untouched}"
@@ -29,9 +29,7 @@ done < <(find "$chalroot" -mindepth 2 -maxdepth 2 -type d | sort)
   echo "| Category | Challenge | Points | Owner | Status |"
   echo "|----------|-----------|--------|-------|--------|"
   if [[ -n "$rows" ]]; then
-    printf '%s' "$rows" | sort -f -t $'\t' -k1,1 -k2,2 | while IFS=$'\t' read -r cat name points owner status; do
-      echo "| $cat | $name | $points | $owner | $status |"
-    done
+    printf '%s' "$rows" | sort -f -t $'\t' -k1,1 -k2,2 | awk -F'\t' '{ printf "| %s | %s | %s | %s | %s |\n", $1, $2, $3, $4, $5 }'
   fi
 } > "$board"
 echo "Updated $board"
