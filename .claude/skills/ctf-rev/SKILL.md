@@ -10,10 +10,10 @@ satisfies a check. Sibling to `ctf-pwn` (which is about crashing/hijacking); her
 is to **understand**. All analysis is offline via **Ghidra/ReVa** (`reva` MCP) and CLI.
 
 ## Recon
-- `file`, `checksec` (or note NX/PIE/canary/RELRO), `strings -n 6 | grep -i uscc`,
+- `file`, `checksec` (or note NX/PIE/canary/RELRO), `strings -n 6 | grep -i <prefix>` (flag prefix from `ctfs/<active>/CTF.md`),
   packer check (UPX? `upx -d` a copy), architecture, language (C/C++/Go/Rust/.NET/Python).
 - Load into Ghidra via ReVa: `get-current-program`, `get-memory-blocks`, `get-functions`,
-  `get-symbols includeExternal=true`, `get-strings regexPattern="flag|USCC"`.
+  `get-symbols includeExternal=true`, `get-strings regexPattern="flag|<PREFIX>"` (flag prefix from `ctfs/<active>/CTF.md`).
 
 ## Analyze
 1. Find `main`/entry: `get-decompilation functionNameOrAddress="main"`.
@@ -29,12 +29,12 @@ is to **understand**. All analysis is offline via **Ghidra/ReVa** (`reva` MCP) a
    `set-decompilation-comment`, `set-bookmark`, `find-cross-references`.
 
 ## Produce the answer
-- Write the recovery/keygen in `scripts/solve.py` (offline; pure computation). Run it
-  yourself to print the flag/key.
-- If the challenge only reveals the flag by **running** it against a remote service, that
-  run is a `▶ RUN THIS YOURSELF` handoff; you supply the input.
-- Dynamic confirmation (gdb/ltrace/running the binary) is the human's to execute — give
-  exact commands.
+- Write the recovery/keygen in `scripts/solve.py` (pure computation) and run it to print
+  the flag/key.
+- If the flag only appears by **running** the input against a remote service, run your
+  client against it yourself.
+- Dynamic confirmation (gdb/ltrace/running the binary) is fair game — do it in a scratch
+  dir, mindful that the binary is untrusted.
 
 ## Guardrails
 - Static analysis and offline computation only for the agent. Executing the target binary

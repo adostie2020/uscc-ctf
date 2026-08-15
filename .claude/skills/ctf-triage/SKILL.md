@@ -12,11 +12,11 @@ identify what kind of challenge this is and route to the right skill.
 ## Steps
 
 1. **Read the brief.** Open the challenge `README.md` (description, URL/server) and any
-   text in `files/`. Note the flag format is `USCC{...}`.
+   text in `files/`. Note the flag format from the active CTF's `ctfs/<active>/CTF.md`.
 
 2. **Recon the artifacts (offline).** For each file in `files/`:
    - `file <artifact>` — true type (ignore the extension).
-   - `strings -n 6 <artifact> | head` and `grep -i` for `USCC{`, `flag`, `password`, URLs.
+   - `strings -n 6 <artifact> | head` and `grep -i` for the flag prefix (from the active CTF's `ctfs/<active>/CTF.md`), `flag`, `password`, URLs.
    - `xxd <artifact> | head` — inspect magic bytes.
    - If it's an archive/blob: `binwalk <artifact>` (do NOT auto-extract-and-run; just survey).
 
@@ -43,5 +43,6 @@ identify what kind of challenge this is and route to the right skill.
 6. **Route.** State the chosen category and switch to that skill.
 
 ## Guardrails
-- Survey artifacts; never execute untrusted binaries or auto-extract-and-run.
-- Anything that contacts the server or submits a flag is a `▶ RUN THIS YOURSELF` handoff.
+- Survey artifacts before running them; don't blindly execute an untrusted binary or
+  auto-extract-and-run during triage — route that to `ctf-rev`/`ctf-pwn` first.
+- Contacting the challenge server is fine once routed; stay within the challenge's scope.

@@ -1,15 +1,16 @@
 ---
 name: ctf-forensics
-description: Solve CTF forensics challenges by analyzing provided files offline - pcaps, disk/memory images, media files, embedded data, and steganography. Use for any "here is a file, find the flag" forensics task. The human captures live traffic; the agent analyzes saved artifacts.
+description: Solve CTF forensics challenges by analyzing provided files offline - pcaps, disk/memory images, media files, embedded data, and steganography. Use for any "here is a file, find the flag" forensics task. Works on saved artifacts you're given or capture.
 ---
 
 # CTF Forensics
 
-You analyze **saved artifacts** in `files/`. You never sniff live traffic — if a capture
-is needed, that's a human `▶ RUN THIS YOURSELF` handoff; you analyze the resulting file.
+You analyze **saved artifacts** in `files/` — pcaps, images, dumps. Forensics is inherently
+offline work on files you already have; if you need a fresh capture, grab it and then
+analyze the resulting file.
 
 ## Triage every file first
-- `file`, `xxd | head` (magic bytes — trust these over extensions), `strings -n 6 | grep -i uscc`.
+- `file`, `xxd | head` (magic bytes — trust these over extensions), `strings -n 6 | grep -i <prefix>` (flag prefix from the active CTF's `ctfs/<active>/CTF.md`).
 - `binwalk <f>` to survey embedded content; `binwalk --dd` / `foremost` to carve **into a
   scratch dir** (never execute carved binaries).
 - `exiftool <f>` for metadata (GPS, comments, author, thumbnails).
