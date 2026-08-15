@@ -10,10 +10,10 @@ __pycache__/
 venv/
 
 # Large / binary challenge artifacts are kept, but ignore build + extraction noise
-challenges/**/_extracted/
-challenges/**/*.core
-challenges/**/ghidra_*/
+ctfs/**/challenges/**/_extracted/
+ctfs/**/challenges/**/*.core
+ctfs/**/challenges/**/ghidra_*/
 *.rep            # Ghidra project locks
 *.lock
 
-# Do NOT ignore challenges/**/files/ — teammates need the artifacts
+# Do NOT ignore ctfs/**/challenges/**/files/ — teammates need the artifacts
