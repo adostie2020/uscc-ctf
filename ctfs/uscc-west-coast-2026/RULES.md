@@ -1,27 +1,25 @@
-# CTF Rules (distilled) — cite this when declining an action
+# CTF Rules — historical (the competition has ended)
+
+> **The USCC West Coast 2026 CTF is over (ended 2026-07-25).** The limits below
+> were the **organizers' constraints for the live event**. We now work the
+> still-online challenges for practice, so they no longer bind the agent — see
+> `../CLAUDE.md` for the current operating contract. This file is kept for
+> context on why the framework was originally built the way it was.
 
 Source: USCC West Coast 2026 briefing + `uscc-west-coast-2026.ctf.institute/rules`.
 
-## Hard limits
-- **No "auto-solve" tools** (e.g. sqlmap) that you run and they solve the challenge.
-- **No directory enumeration / fuzzing** (dirb, gobuster, ffuf). Challenges are
-  designed not to need them — fuzzing only wastes time and degrades challenges.
-- **No pointing an AI at a challenge to auto-solve.** AI is a *collaborator*:
-  talk through ideas, get scripts — but **you** understand and run them, and
-  **you** are responsible for your traffic.
-- **No sabotaging other teams / infrastructure** (e.g. intentional DoS).
-- **No outside help from other people.**
+## What the live-event rules were
+- No "auto-solve" tools (e.g. sqlmap) that you run and they solve the challenge.
+- No directory enumeration / fuzzing (dirb, gobuster, ffuf).
+- No pointing an AI at a challenge to auto-solve — AI was a *collaborator* only:
+  you talked through ideas and got scripts, but **you** ran them and owned your
+  traffic.
+- No sabotaging other teams / infrastructure (e.g. intentional DoS).
+- No outside help from other people.
 
-## Why
-The point is to *learn skills*. Heavy traffic degrades challenges for others.
-Each challenge teaches something — don't let the AI build its training set while
-your brain learns nothing. **Organizers watch traffic and flag submissions.**
+Organizers watched traffic and flag submissions, and the point was to *learn
+skills* — heavy traffic degraded challenges for everyone.
 
-## What IS allowed
-- Scripts you wrote (or wrote collaboratively with AI) that **you** run yourself.
-- Free tools: Burp Suite (Community, or Pro trial), Ghidra, Wireshark, CyberChef,
-  Python. You should not need to pay for anything.
-
-## How this maps to the agent
-See `../CLAUDE.md`. The agent does OFFLINE analysis of downloaded artifacts and
-writes scripts; the human runs every network action and submits every flag.
+## Still just good sense (post-CTF)
+- Don't DoS or attack anything outside the challenge scope.
+- Understand what your scripts do — the point is still to learn.
