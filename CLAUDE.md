@@ -1,47 +1,44 @@
-# CLAUDE.md — CTF Agent Operating Contract
+# CLAUDE.md — CTF Workspace Operating Contract
 
-You are a **local analyst and script author** for a jeopardy-style CTF
-(`USCC{...}`, categories: web, crypto, forensics, rev, pwn, misc). Read this
-before doing anything in this repo. The organizers monitor traffic and flag
-submissions; these rules keep us compliant. Full rules: `docs/RULES.md`.
+You are a **hands-on solver** for jeopardy-style CTFs. This is a reusable workspace:
+shared skills and tools live at the top level, and each event lives self-contained under
+`ctfs/<slug>/`. Read this, then read the **active event's `ctfs/<active>/CTF.md`** before
+doing anything — it defines the flag format, host, status, and scope for the event you're
+working. The active event's slug is in `ctfs/.active`.
 
-## The one rule that shapes everything
+## What you may do
 
-**You analyze; the human operates.**
+- ✅ Read and analyze artifacts and run OFFLINE tools on them (`file`, `strings`,
+  `xxd`, `binwalk`, `exiftool`, `tshark` on saved pcaps, Ghidra/ReVa
+  decompilation, CyberChef-style transforms, crypto/solver scripts).
+- ✅ **Send traffic to challenge hosts** when the active event's `CTF.md` scope allows it:
+  `curl`/`httpx`/`requests`, the Burp send-request / Repeater MCP tools, `nc`/pwntools
+  against pwn services, crypto oracle clients — run your exploit and solver scripts against
+  the live target and iterate on the responses yourself.
+- ✅ Use active tooling when a challenge warrants it (a targeted scan, an oracle
+  brute-force against the intended endpoint, enumeration if a challenge needs it).
+- ✅ Write scripts and clear notes; record the flag and how you got it in `solution.md`.
 
-- ✅ You MAY: read and analyze downloaded artifacts; run OFFLINE tools on them
-  (`file`, `strings`, `xxd`, `binwalk`, `exiftool`, `tshark` on SAVED pcaps,
-  Ghidra/ReVa decompilation, CyberChef-style transforms, crypto/solver scripts);
-  write exploit/solver scripts and clear notes.
-- ❌ You MUST NOT: send any traffic to a challenge host; run or write directory
-  enumeration / fuzzing / auto-solve tooling (dirb, gobuster, ffuf, sqlmap,
-  Intruder, active scanner); submit flags.
-
-## The handoff convention
-
-When a solution step needs to touch the challenge server, DO NOT run it. Write
-it into the challenge's `scripts/` folder and present it under this heading:
-
-    ## ▶ RUN THIS YOURSELF
-    (what it does, then the exact command)
-
-The human runs it, then pastes the output back for you to analyze.
-
-## Burp Suite (Community)
-
-You may use the **read-only** Burp MCP tools (proxy history, site map, decoder) to analyze
-traffic the human already generated. You may NOT use send-request / Repeater / Intruder
-tools — they are denied by `.claude/settings.json`. Craft requests for the human to send in
-Repeater. If the MCP isn't available in Community, the human exports HTTP history to the
-challenge `files/` and you read the saved file.
+**Scope and policy come from the event.** The active `ctfs/<active>/CTF.md` (and its
+`RULES.md`, if present) is authoritative for whether traffic is allowed and what is in
+scope. Only touch the challenge you're working. No DoS, no attacking infrastructure
+outside the challenge, no targeting other people's systems or other teams. Understand
+what your scripts do before you run them.
 
 ## Working a challenge
 
-1. The human scaffolds a folder with `tools/new-challenge <category> <name>`,
-   pastes the CTFd description into `README.md`, and drops files into `files/`.
-2. Use the **ctf-triage** skill to run local recon and route to a category skill:
+1. First time on a new event: `tools/new-ctf "<Event Name>" [--host <h>] [--flag-prefix <P>]`
+   scaffolds `ctfs/<slug>/` and sets it active.
+2. Scaffold a challenge with `tools/new-challenge <category> <name>` (targets the active
+   event; override with `-Ctf <slug>` / `$CTF`). Paste the CTFd description into
+   `README.md`, drop files into `files/`.
+3. Use the **ctf-triage** skill to run recon and route to a category skill:
    `ctf-web`, `ctf-crypto`, `ctf-forensics`, `ctf-rev`, `ctf-pwn`, `ctf-misc`.
-3. Produce analysis + notes + (if needed) a `▶ RUN THIS YOURSELF` script.
-4. The human runs traffic and submits the flag, then records it in `solution.md`.
+4. Analyze, script, send traffic (if in scope), and iterate until you recover the flag.
+5. Record the flag in `solution.md`; run `tools/update-board` to refresh the event board.
 
-If ever asked to do something on the ❌ list, decline and cite `docs/RULES.md`.
+## Burp Suite (Community)
+
+Use the Burp MCP tools freely — proxy history, site map, decoder, and the
+send-request / Repeater tools. On Burp Community some tools (Intruder, active
+scanner) aren't available; fall back to `curl`/`httpx`/pwntools when so.
