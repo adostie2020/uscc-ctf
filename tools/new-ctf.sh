@@ -23,7 +23,7 @@ tpl="${tpl//'{{NAME}}'/"$name"}"
 tpl="${tpl//'{{SLUG}}'/"$slug"}"
 tpl="${tpl//'{{FLAG_PREFIX}}'/"$prefix"}"
 tpl="${tpl//'{{HOST}}'/"$host"}"
-printf '%s' "$tpl" > "$dir/CTF.md"
+printf '%s\n' "$tpl" > "$dir/CTF.md"
 printf '%s\n' "$slug" > "$root/ctfs/.active"
 echo "Created $dir and set active CTF -> $slug"
 echo 'Next: tools/new-challenge.sh <category> "<name>"'

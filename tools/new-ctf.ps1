@@ -14,7 +14,7 @@ New-Item -ItemType Directory -Path (Join-Path $dir "artifacts")  | Out-Null
 New-Item -ItemType File -Path (Join-Path $dir "challenges/.gitkeep") | Out-Null
 New-Item -ItemType File -Path (Join-Path $dir "artifacts/.gitkeep")  | Out-Null
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
-$tpl = Get-Content (Join-Path $root "templates/CTF.md") -Raw
+$tpl = Get-Content (Join-Path $root "templates/CTF.md") -Raw -Encoding UTF8
 $tpl = $tpl.Replace("{{NAME}}", $Name).Replace("{{SLUG}}", $slug).Replace("{{FLAG_PREFIX}}", $FlagPrefix).Replace("{{HOST}}", $CtfHost)
 [System.IO.File]::WriteAllText((Join-Path $dir "CTF.md"), $tpl, $utf8NoBom)
 [System.IO.File]::WriteAllText((Join-Path $root "ctfs/.active"), "$slug`n", $utf8NoBom)
