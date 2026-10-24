@@ -36,6 +36,16 @@ is to **understand**. All analysis is offline via **Ghidra/ReVa** (`reva` MCP) a
 - Dynamic confirmation (gdb/ltrace/running the binary) is fair game — do it in a scratch
   dir, mindful that the binary is untrusted.
 
+## Tools on this box
+- Decompilation via Ghidra (`reva` MCP) — no local install. `strings`/`file`/`xxd`,
+  `objdump`/`readelf` in WSL.
+- Dynamic confirmation in WSL: `wsl gdb /mnt/c/.../bin` (gef auto-loads), `ltrace`, `strace`.
+  Linux x86-64 runs natively; aarch64 via the `~/neon` qemu rig; Windows PE on the Windows
+  side. `radare2` is Tier-2 (ask to install for quick disasm).
+- `python3` for keygens/solvers (`scripts/solve.py`).
+
 ## Guardrails
-- Static analysis and offline computation only for the agent. Executing the target binary
-  or hitting a remote service is a human handoff. Recovered flag → `solution.md`.
+- Static analysis + offline computation are the default; **dynamic confirmation — running the
+  binary, gdb/gef/ltrace — is yours to do** in a WSL scratch dir (the binary is untrusted).
+  If the flag only appears by hitting the challenge's remote service, run your client against
+  it yourself within the event scope. Recovered flag → `solution.md`.

@@ -37,6 +37,15 @@ analyze the resulting file.
    a scratch dir, don't execute output).
 3. Recover the flag → `solution.md`.
 
+## Tools on this box
+Installed now (run from WSL, e.g. `wsl zsteg /mnt/c/Users/adost/uscc-ctf/.../img.png`):
+`binwalk`, `exiftool`, `steghide`, `zsteg`, `pngcheck`, `7z`, `strings`/`xxd`/`file`, plus
+`ffmpeg` on the Windows side.
+Install on demand (Tier-2 — say the word): `stegseek` (steghide brute-force), `foremost` +
+`sleuthkit` (mmls/fls/icat) + `testdisk` for disk images, `tesseract` (OCR), `sox` (audio),
+`imagemagick`, and `volatility3` for memory dumps (RAM-heavy — run one at a time).
+
 ## Guardrails
-- Analyze provided files only. Live capture = human handoff. Don't execute carved/embedded
-  binaries — analyze them statically (route to `ctf-rev` if needed).
+- Analyze provided files only; live capture isn't part of jeopardy forensics. Don't execute
+  carved/embedded binaries — analyze them statically (route to `ctf-rev` if needed).
+- Recovered flag → `solution.md` (don't auto-submit).

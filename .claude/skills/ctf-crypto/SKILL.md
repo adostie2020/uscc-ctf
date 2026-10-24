@@ -32,10 +32,23 @@ oracle yourself.
 ## Workflow
 1. Identify inputs in `files/` (ciphertext, `n/e/c`, key, params) and the exact goal.
 2. Name the scheme + the specific weakness. Record it in `notes.md`.
-3. Write a self-contained solver into `scripts/solve.py` (offline). Run it yourself if it
-   only touches local files; if it needs the remote oracle, mark it `▶ RUN THIS YOURSELF`.
+3. Write a self-contained solver into `scripts/solve.py`. Run it yourself — on local files
+   for offline math, or against the challenge's oracle when the event scope allows.
 4. Recover plaintext → confirm it matches the flag format in the active CTF's `ctfs/<active>/CTF.md` → put the flag in `solution.md` for the human.
 
+## Tools on this box
+Crypto stack lives in WSL — invoke from Windows as `wsl python3 …`; challenge files are at
+`/mnt/c/Users/adost/uscc-ctf/…`.
+- `python3` with `pycryptodome`, `gmpy2`, `sympy`, `z3` (SMT), `numpy`/`scipy` — the
+  workhorses for RSA / modular math / small lattices.
+- **No SageMath** on this box (RAM-bound): use `gmpy2`+`sympy`+`z3`, or SageCell online
+  (https://sagecell.sagemath.org/) for ECM / Gröbner / heavy number theory.
+- `RsaCtfTool`, `flatter`, `fpylll` are Tier-2 — ask and I'll install for hard RSA/lattice.
+- `openssl` for quick enc/dec/key inspection.
+
 ## Guardrails
-- Offline math/scripts on provided data are fine. Any oracle interaction over the network
-  is a human handoff. No brute-forcing a remote endpoint.
+- Offline math/scripts on provided data are the default. **Oracle interaction is yours to
+  run** within the event's scope (`ctfs/<active>/CTF.md`): write the client and hit the
+  endpoint yourself, iterating on responses (padding / CBC bit-flip / CTR-reuse / timing).
+  Stay on the challenge's own service; no DoS. Recovered flag → `solution.md` (don't
+  auto-submit).

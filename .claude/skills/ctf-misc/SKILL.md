@@ -14,18 +14,24 @@ script it, and run the networked/interactive steps yourself.
 - **Esoteric languages:** Brainfuck, Whitespace, Malbolge, Piet, ><> — identify by shape,
   run an interpreter offline.
 - **QR / barcodes / data matrix:** decode from the image (offline libs); repair damaged codes.
-- **Jails (pyjail / bash / calc):** analyze the sandbox source in `files/` and craft a
-  bypass payload. The agent designs it; **the human sends it** to the live jail
-  (`▶ RUN THIS YOURSELF`). Never brute-force the endpoint.
-- **Scripting/logic puzzles / "programming":** if a remote service asks rapid questions,
-  write a client the **human** runs (handoff); solve the logic offline.
-- **OSINT:** the human performs searches and visits sites; you help interpret findings and
-  plan queries. You don't fetch challenge-related URLs yourself.
+- **Jails (pyjail / bash / calc):** analyze the sandbox source in `files/`, craft a bypass
+  payload, and send it to the live jail yourself (in scope). Don't brute-force the endpoint.
+- **Scripting/logic puzzles / "programming":** if a remote service fires rapid questions,
+  write the client and run it yourself; solve the logic offline first.
+- **OSINT:** search and fetch public sources yourself to interpret findings and plan
+  queries (OSINT targets are public, not the challenge host).
 
 ## Workflow
 1. Identify the true nature (don't assume from the title). Note it in `notes.md`.
-2. Solve/scaffold offline; put any networked step behind a `▶ RUN THIS YOURSELF` handoff.
+2. Solve/scaffold offline, then run any networked step yourself within the event scope.
 3. Flag → `solution.md`.
 
+## Tools on this box
+`python3` (Windows + WSL) for decoders/interpreters, `jq` (WSL), `7z` for odd archives,
+`steghide`/`zsteg`/`binwalk`/`exiftool` for file-ish misc, `ffmpeg` (Windows) / `sox` (Tier-2)
+for media. Peel encoding chains with a quick `python` script; the flag prefix is your marker.
+
 ## Guardrails
-- No fuzzing, no auto-solvers, no agent traffic. Human runs networked steps and submits flags.
+- Run the networked/interactive steps yourself within the event's scope
+  (`ctfs/<active>/CTF.md`) — jail payloads, question-answering clients — iterating on
+  responses. Stay on the challenge's own service; no DoS. Flag → `solution.md`.
